@@ -1,15 +1,17 @@
 services:
   mysql-db:
     image: mysql:9.0
-    container_name: mysql
+    container_name: mysql_container
     environment:
-      - MYSQL_DATABASE: rubrica_db
-      - MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: rubrica_db
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306" #mappa la porta del container alla stessa porta di codespace
+    networks:
+      - app-networks
   #spring-backend:
 
-  networks:
-    app-networks:
-      driver: bridge
+networks:
+  app-networks:
+    driver: bridge
       
