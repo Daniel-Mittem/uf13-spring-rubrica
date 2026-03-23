@@ -16,8 +16,8 @@
     </div>   
 
     <div>
-        <table>
-            <thead>
+        <table class="table table-dark table-striped table-bordered table-hover">
+            <thead class="table-primary">
                 <th>Nome</th>
                 <th>Cognome</th>
                 <th>Telefono</th>
@@ -30,7 +30,7 @@
                         <td th:text="${c.surname}"></td>
                         <td th:text="${c.phone}"></td>
                         <td th:text="${c.email}"></td>
-
+                        <td> </td>
                     </td>
                 </tr>
             </tbody>
