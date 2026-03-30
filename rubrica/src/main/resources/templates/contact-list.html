@@ -22,7 +22,7 @@
                 <th>Cognome</th>
                 <th>Telefono</th>
                 <th>Email</th>
-                <th>Dettagli</th>
+                <th>Elimina</th>
             </thead>
             <tbody>
                 <tr th:each="c : ${contacts}">
@@ -30,7 +30,9 @@
                         <td th:text="${c.surname}"></td>
                         <td th:text="${c.phone}"></td>
                         <td th:text="${c.email}"></td>
-                        <td> </td>
+                        <td>
+                            <a th:href="@{'/contact/delete/'+${c.id}}" th:method="delete" class="btn btn-danger">Elimina</a>
+                        </td>
                     </td>
                 </tr>
             </tbody>

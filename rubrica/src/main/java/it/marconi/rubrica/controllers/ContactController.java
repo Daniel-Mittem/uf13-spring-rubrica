@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import it.marconi.rubrica.domain.Contact;
 import it.marconi.rubrica.domain.ContactForm;
@@ -70,6 +72,12 @@ public class ContactController {
         else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Contatto non trovato");
         }
+    }
+
+    @GetMapping(path = "contact/delete/{id}")
+    public ModelAndView deleteContact(@PathVariable("id") UUID contactId){
+        contactServices.deleteById(contactId);
+        return new ModelAndView("redirect:/");
     }
     
 }

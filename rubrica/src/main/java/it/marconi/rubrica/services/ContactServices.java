@@ -42,5 +42,9 @@ public class ContactServices {
     public Optional<Contact> get(UUID id) {
         return contactRepository.findById(id);
     }
+
+    public void deleteById(UUID id){
+        contactRepository.deleteById(id);
+    }
     
 }
