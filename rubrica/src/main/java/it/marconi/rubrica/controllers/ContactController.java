@@ -9,13 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import it.marconi.rubrica.domain.Contact;
 import it.marconi.rubrica.domain.ContactForm;
 import it.marconi.rubrica.services.ContactServices;
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,7 +45,15 @@ public class ContactController {
     }
 
     @PostMapping("/new")
-    public ModelAndView handleNewContact(@ModelAttribute ContactForm contactForm){
+    public ModelAndView handleNewContact(@ModelAttribute @Valid ContactForm contactForm, BindingResult br, RedirectAttributes attr) {
+
+        // controllo l'esito della validazione
+        if(br.hasErrors()) {
+            return new ModelAndView("contact-form");
+        }
+        //aggiungo un parametro speciale che sopravviva al redirect
+        attr.addFlashAttribute("newContact", true);
+
         Contact c = contactServices.save(contactForm);	
         return new ModelAndView("redirect:/contact?id=" + c.getId());
     
@@ -54,10 +65,10 @@ public class ContactController {
 
         // Controllo se il dato è presente
         if(opContact.isPresent()){
-            return new ModelAndView("contact-detail").addObject("contact", opContact.get())
+            return new ModelAndView("contact-detail").addObject("contact", opContact.get());
         }
         else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Contatto non trovato")
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Contatto non trovato");
         }
     }
     
