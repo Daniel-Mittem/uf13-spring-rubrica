@@ -14,7 +14,9 @@
     <div>
         <h2 class="mb-4">Lista contatti</h2>
     </div>   
-
+    <div class="alert alert-success" role="alert" th:if="${deletedContact!= null}">
+                <h1>Contatto Eliminato</h1>
+            </div>
     <div>
         <table class="table table-dark table-striped table-bordered table-hover">
             <thead class="table-primary">

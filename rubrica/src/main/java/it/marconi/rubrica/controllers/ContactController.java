@@ -75,8 +75,11 @@ public class ContactController {
     }
 
     @GetMapping(path = "contact/delete/{id}")
-    public ModelAndView deleteContact(@PathVariable("id") UUID contactId){
+    public ModelAndView deleteContact(@PathVariable("id") UUID contactId, RedirectAttributes ar){
         contactServices.deleteById(contactId);
+        //aggiungo un parametro speciale che sopravviva al redirect
+        ar.addFlashAttribute("deletedContact", true);
+
         return new ModelAndView("redirect:/");
     }
     
